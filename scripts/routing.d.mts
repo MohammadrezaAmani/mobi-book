@@ -1,4 +1,12 @@
 export type RoutingMode = "hash" | "browser";
+export function entryRoutingMode(
+  location: { pathname: string; hash?: string },
+  options?: {
+    base?: string;
+    mode?: RoutingMode;
+    indexableEntryPoints?: boolean;
+  },
+): RoutingMode;
 export function normalizeBase(base?: string): string;
 export function routeHref(
   path: string,
