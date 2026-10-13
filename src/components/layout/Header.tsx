@@ -46,6 +46,11 @@ export function Header({
       const matching = chapter && getTranslation(chapter, next);
       if (matching) navigate(readPath(matching));
       else navigate("/library/");
+    } else if (
+      location.pathname === "/" ||
+      location.pathname.startsWith("/library")
+    ) {
+      navigate(`/library/${next}/`);
     }
   };
   const navigation = config.navigation.filter(
