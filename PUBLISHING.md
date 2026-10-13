@@ -21,7 +21,13 @@ No deployment is published unless the content generator, unit tests, TypeScript 
 
 Vite builds a React HashRouter app by default. Published links use `/<repo>/#/read/fa/.../`, so navigation and refresh request the same static entry point. The repository base stays outside the hash. Heading anchors and Studio query parameters remain inside the logical route. `routing.mode: "browser"` is available for hosts with suitable route handling.
 
-The `prerender.mjs` step also emits physical chapter entry points for crawlable text fallbacks and existing links. Old physical chapter URLs upgrade to the hash route on startup. Studio entry points are generated only when `features.studio` is enabled. `features.landingPage: false` publishes the configured book home instead of the Mobi introduction. Both features are disabled in the default publication configuration.
+The `prerender.mjs` step emits complete Markdown and MDX HTML at physical chapter URLs and localized book pages. With `routing.indexableEntryPoints: true`, direct physical entries use BrowserRouter and retain their path instead of redirecting to a fragment. These paths refresh on GitHub Pages because their real `index.html` files are included in the artifact. Root entries retain HashRouter. Setting `indexableEntryPoints: false` restores the legacy upgrade to hash URLs. Studio entry points are generated only when `features.studio` is enabled. `features.landingPage: false` publishes the configured book home instead of the Mobi introduction. Both features are disabled in the default publication configuration.
+
+## Search discovery
+
+`config/seo.json` controls indexing, social preview images, structured data and the optional Google Search Console verification tag. Initial HTML and client navigation share one metadata generator. Every published chapter has a unique title, description, physical canonical URL, localized alternate links and Book/Chapter structured data. Static links and the sitemap point to physical URLs. Studio and error pages are marked `noindex`; duplicate book entries canonicalize to the same book page.
+
+Set `siteUrl` to the production origin and `VITE_BASE_PATH` to the deployment folder. The Pages workflow supplies these values automatically. Submit the published `sitemap.xml` through a verified URL-prefix property in Google Search Console; see `CONFIGURATION.md`. On project Pages, the generated `/<repo>/robots.txt` cannot control crawling at the domain level because crawlers consult `/robots.txt` at the origin root. Indexing and ranking are determined by Google after discovery and processing.
 
 The GitHub Pages artifact is hosted under `BASE_PATH`; all reader-generated absolute internal references respect Vite's `import.meta.env.BASE_URL`.
 
@@ -35,4 +41,4 @@ Offline-first, browser-local writing and on-push static publication are implemen
 
 ## Verification
 
-Every build runs `scripts/verify-dist.mjs` after the Vite build and prerender step to check the emitted entry points, direction metadata and local asset paths. See `RELEASE_CHECKLIST.md` for limitations and outstanding browser verification.
+Every build runs `scripts/verify-dist.mjs` after the Vite build and prerender step to check the emitted entry points, direction metadata, local assets, canonical URLs, indexing directives, social tags, JSON-LD and sitemap destinations. See `RELEASE_CHECKLIST.md` for limitations and outstanding browser verification.
