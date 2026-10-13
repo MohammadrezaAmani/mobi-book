@@ -5,6 +5,7 @@ import { Routes, Route, useLocation } from "react-router-dom";
 import { Header, BottomNav } from "@/components/layout/Header";
 import { SearchModal } from "@/components/layout/SearchModal";
 import { SettingsModal } from "@/components/layout/SettingsModal";
+import { PageMetadata } from "@/components/layout/PageMetadata";
 import {
   config,
   getChapter,
@@ -53,33 +54,6 @@ export default function App() {
     document.addEventListener("keydown", onKey);
     return () => document.removeEventListener("keydown", onKey);
   }, []);
-  useEffect(() => {
-    const match = /^\/read\/([^/]+)\/(.+?)\/?$/.exec(loc.pathname);
-    const locale =
-      match && config.locales.includes(match[1]) ? match[1] : prefs.locale;
-    const chapter = match ? getChapter(locale, match[2]) : undefined;
-    const title =
-      chapter?.title ||
-      (config.features.studio && loc.pathname.startsWith("/studio")
-        ? formatText(config.studio.name, { brand: config.brand })
-        : loc.pathname.startsWith("/library")
-          ? t(locale).library
-          : "");
-    document.title = title
-      ? title + config.meta.titleSeparator + localized(config.title, locale)
-      : localized(config.title, locale);
-    document
-      .querySelector('meta[name="description"]')
-      ?.setAttribute(
-        "content",
-        chapter?.description ||
-          (config.features.studio && loc.pathname.startsWith("/studio")
-            ? localized(config.meta.studioSummary, locale)
-            : loc.pathname.startsWith("/library")
-              ? localized(config.meta.librarySummary, locale)
-              : localized(config.description, locale)),
-      );
-  }, [loc.pathname, prefs.locale]);
   const studioElement = (
     <Suspense
       fallback={
@@ -112,12 +86,14 @@ export default function App() {
 
   return (
     <div className="app-shell">
+      <PageMetadata />
       <Header
         onSearch={() => setSearch(true)}
         onSettings={() => setSettings(true)}
       />
       <Routes>
         <Route path="/" element={homeElement} />
+        <Route path="/library/:locale/" element={<Library />} />
         <Route path="/library/*" element={<Library />} />
         <Route
           path="/read/:locale/:slug/*"
