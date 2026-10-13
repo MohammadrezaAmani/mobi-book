@@ -22,7 +22,7 @@ import {
 } from "@/lib/book";
 import { Button } from "@/components/ui/button";
 import { ConfigIcon } from "@/components/ui/config-content";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 export function Header({
   onSearch,
@@ -36,6 +36,7 @@ export function Header({
     location = useLocation();
   const [menu, setMenu] = useState(false),
     navigate = useNavigate();
+  useEffect(() => setMenu(false), [location.pathname]);
   const chapterMatch = location.pathname.match(/^\/read\/([^/]+)\/(.+?)\/?$/);
   const switchLocale = () => {
     const next = nextLocale(prefs.locale);
@@ -122,13 +123,15 @@ export function Header({
             className="icon-button mobile-menu-trigger"
             onClick={() => setMenu(!menu)}
             aria-label={tr.headerToggleMenu}
+            aria-expanded={menu}
+            aria-controls="mobile-navigation-menu"
           >
             <Menu size={config.appearance.iconSizes["21"]} />
           </button>
         </div>
       </div>
       {menu && (
-        <div className="mobile-menu">
+        <div className="mobile-menu" id="mobile-navigation-menu">
           {navigation.map((item, index) => (
             <Link
               key={index}
@@ -165,7 +168,8 @@ export function Header({
 }
 export function BottomNav() {
   const { prefs } = useBookPreferences(),
-    tr = t(prefs.locale);
+    tr = t(prefs.locale),
+    location = useLocation();
   if (!config.features.bottomNavigation) return null;
   const navigation = config.navigation.filter(
     (item) => item.target !== "studio" || config.features.studio,
@@ -183,6 +187,13 @@ export function BottomNav() {
           key={index}
           to={targetPath(item.target, prefs.locale)}
           end={item.target === "home"}
+          className={({ isActive }) =>
+            isActive ||
+            (item.target === "library" &&
+              location.pathname.startsWith("/read/"))
+              ? "active"
+              : ""
+          }
         >
           <ConfigIcon
             name={item.icon}

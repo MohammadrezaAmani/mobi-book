@@ -1,5 +1,6 @@
 import { useEffect, useState, useRef } from "react";
 import { Link, useLocation, useParams } from "react-router-dom";
+import * as Dialog from "@radix-ui/react-dialog";
 import {
   ArrowLeft,
   ArrowRight,
@@ -19,6 +20,7 @@ import {
   Share2,
   Printer,
   SlidersHorizontal,
+  X,
 } from "lucide-react";
 import {
   config,
@@ -136,6 +138,7 @@ export function Reader({
     { id: string; title: string; level: number }[]
   >([]);
   const contentRef = useRef<HTMLElement>(null);
+  const chaptersButtonRef = useRef<HTMLButtonElement>(null);
   const isRtl = localeIsRtl(locale),
     PrevIcon = isRtl ? ArrowRight : ArrowLeft,
     NextIcon = isRtl ? ArrowLeft : ArrowRight;
@@ -268,7 +271,12 @@ export function Reader({
         )}
         <div className="reader-mobile-bar">
           {reader.sidebar && (
-            <button onClick={() => setShowChapters(true)}>
+            <button
+              ref={chaptersButtonRef}
+              onClick={() => setShowChapters(true)}
+              aria-haspopup="dialog"
+              aria-expanded={showChapters}
+            >
               <Menu size={config.appearance.iconSizes["19"]} />
               {tr.chapters}
             </button>
@@ -280,30 +288,32 @@ export function Reader({
             </button>
           )}
         </div>
-        {showChapters && (
-          <div
-            className="mobile-sidebar-overlay"
-            onClick={() => setShowChapters(false)}
-          >
-            <aside
+        <Dialog.Root open={showChapters} onOpenChange={setShowChapters}>
+          <Dialog.Portal>
+            <Dialog.Overlay className="mobile-sidebar-overlay" />
+            <Dialog.Content
               className="mobile-sidebar-panel"
-              onClick={(e) => e.stopPropagation()}
+              aria-describedby={undefined}
+              onCloseAutoFocus={(event) => {
+                event.preventDefault();
+                chaptersButtonRef.current?.focus();
+              }}
             >
-              <button
+              <Dialog.Title className="sr-only">{tr.chapters}</Dialog.Title>
+              <Dialog.Close
                 aria-label={tr.dialogClose}
                 className="mobile-close"
-                onClick={() => setShowChapters(false)}
               >
-                ✕
-              </button>
+                <X size={config.appearance.iconSizes["18"]} />
+              </Dialog.Close>
               <ChapterSidebar
                 list={list}
                 active={ch}
                 close={() => setShowChapters(false)}
               />
-            </aside>
-          </div>
-        )}
+            </Dialog.Content>
+          </Dialog.Portal>
+        </Dialog.Root>
         <div className="reader-grid">
           {reader.sidebar && isOutlineVisible && (
             <aside className="reader-sidebar">

@@ -33,7 +33,9 @@
         "accent-soft": "#e3ede7",
         "paper": "#fffefa",
         "cream": "#ede5d0",
-        "reader-ink": "#28372f"
+        "reader-ink": "#28372f",
+        "neo-shadow-dark": "#d8dbd2",
+        "neo-shadow-light": "#ffffff"
       },
       "diagramTheme": "neutral"
     },
@@ -60,7 +62,9 @@
         "accent-soft": "#e3f1ea",
         "paper": "#fff",
         "cream": "#edf3ee",
-        "reader-ink": "#22322c"
+        "reader-ink": "#22322c",
+        "neo-shadow-dark": "#dfe5e1",
+        "neo-shadow-light": "#ffffff"
       },
       "diagramTheme": "neutral"
     },
@@ -87,7 +91,9 @@
         "accent-soft": "#d0e2d2",
         "paper": "#f3f5ee",
         "cream": "#dbe5da",
-        "reader-ink": "#304b3b"
+        "reader-ink": "#304b3b",
+        "neo-shadow-dark": "#bfcdbd",
+        "neo-shadow-light": "#f8fff4"
       },
       "diagramTheme": "neutral"
     },
@@ -114,7 +120,9 @@
         "accent-soft": "#2f4b42",
         "paper": "#202926",
         "cream": "#415349",
-        "reader-ink": "#e5e9dd"
+        "reader-ink": "#e5e9dd",
+        "neo-shadow-dark": "#101713",
+        "neo-shadow-light": "#34453b"
       },
       "diagramTheme": "dark"
     }
@@ -300,7 +308,29 @@
     "tocIndent": "12px",
     "bookCoverWidth": "190px",
     "bookIntroGap": "48px",
-    "wordmarkWidth": "min(320px,45vw)"
+    "wordmarkWidth": "min(320px,45vw)",
+    "frameRadius": "28px",
+    "frameBorderWidth": "1px",
+    "mobileHeaderHeight": "65px",
+    "sidebarCompactWidth": "210px",
+    "tocCompactWidth": "175px",
+    "sidebarTabletWidth": "200px",
+    "studioSidebarWidth": "230px",
+    "studioSidebarTabletWidth": "185px",
+    "neoRaisedShadow": "6px 6px 16px var(--neo-shadow-dark), -6px -6px 16px var(--neo-shadow-light)",
+    "neoControlShadow": "3px 3px 8px var(--neo-shadow-dark), -3px -3px 8px var(--neo-shadow-light)",
+    "neoInsetShadow": "inset 3px 3px 7px var(--neo-shadow-dark), inset -3px -3px 7px var(--neo-shadow-light)",
+    "mobileGutter": "12px",
+    "mobileControlSize": "42px",
+    "mobileFrameRadius": "24px",
+    "mobileControlRadius": "14px",
+    "mobileWordmarkWidth": "clamp(70px,calc(100vw - 232px),250px)",
+    "mobileBottomNavHeight": "66px",
+    "mobileContentGutter": "32px",
+    "mobileDrawerWidth": "min(340px,calc(100vw - 24px))",
+    "mobileOverlayZIndex": "95",
+    "mobileDrawerZIndex": "96",
+    "mobileDrawerShadow": "0 18px 50px var(--mobile-sidebar-overlay-background)"
   },
   "customCss": "",
   "iconSizes": {

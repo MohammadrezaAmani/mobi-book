@@ -9,7 +9,9 @@
     "order": 1,
     "category": "Opening notes",
     "duration": 1,
-    "headings": ["An invitation"],
+    "headings": [
+      "An invitation"
+    ],
     "translationKey": "preface",
     "format": "md"
   },
@@ -23,7 +25,10 @@
     "order": 2,
     "category": "Part I · Discover",
     "duration": 1,
-    "headings": ["Better questions", "A practical exercise"],
+    "headings": [
+      "Better questions",
+      "A practical exercise"
+    ],
     "translationKey": "curiosity",
     "format": "md"
   },
@@ -37,7 +42,10 @@
     "order": 3,
     "category": "Part I · Discover",
     "duration": 1,
-    "headings": ["An elementary inference", "Readable code"],
+    "headings": [
+      "An elementary inference",
+      "Readable code"
+    ],
     "translationKey": "reasoning",
     "format": "mdx"
   },
@@ -51,7 +59,9 @@
     "order": 4,
     "category": "Part II · Create",
     "duration": 1,
-    "headings": ["A striking identity"],
+    "headings": [
+      "A striking identity"
+    ],
     "translationKey": "mathematics",
     "format": "mdx"
   },
@@ -65,7 +75,9 @@
     "order": 5,
     "category": "Part III · Publish",
     "duration": 1,
-    "headings": ["A small document"],
+    "headings": [
+      "A small document"
+    ],
     "translationKey": "writing",
     "format": "md"
   },
@@ -79,7 +91,10 @@
     "order": 1,
     "category": "آغاز سفر",
     "duration": 2,
-    "headings": ["چرا این کتاب را بخوانیم؟", "چگونه از این کتاب استفاده کنیم؟"],
+    "headings": [
+      "چرا این کتاب را بخوانیم؟",
+      "چگونه از این کتاب استفاده کنیم؟"
+    ],
     "translationKey": "preface",
     "format": "md"
   },
@@ -93,7 +108,11 @@
     "order": 2,
     "category": "بخش نخست · کشف",
     "duration": 1,
-    "headings": ["هنر طرح مسئله", "تمرین مشاهده", "از سؤال تا پژوهش"],
+    "headings": [
+      "هنر طرح مسئله",
+      "تمرین مشاهده",
+      "از سؤال تا پژوهش"
+    ],
     "translationKey": "curiosity",
     "format": "md"
   },
@@ -126,7 +145,11 @@
     "order": 4,
     "category": "بخش دوم · ساختن",
     "duration": 1,
-    "headings": ["مفهوم تابع", "یک اتحاد مشهور", "یک جدول کوچک"],
+    "headings": [
+      "مفهوم تابع",
+      "یک اتحاد مشهور",
+      "یک جدول کوچک"
+    ],
     "translationKey": "mathematics",
     "format": "mdx"
   },
@@ -140,7 +163,11 @@
     "order": 5,
     "category": "بخش دوم · ساختن",
     "duration": 1,
-    "headings": ["فاصله گرفتن از پاسخ اول", "تفکر واگرا و همگرا", "تمرین"],
+    "headings": [
+      "فاصله گرفتن از پاسخ اول",
+      "تفکر واگرا و همگرا",
+      "تمرین"
+    ],
     "translationKey": "creativity",
     "format": "md"
   },
@@ -172,7 +199,10 @@
     "order": 7,
     "category": "پایان راه",
     "duration": 1,
-    "headings": ["مهارتِ دوباره آموختن", "ادامهٔ مسیر"],
+    "headings": [
+      "مهارتِ دوباره آموختن",
+      "ادامهٔ مسیر"
+    ],
     "translationKey": "future",
     "format": "md"
   }

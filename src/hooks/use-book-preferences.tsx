@@ -2,6 +2,9 @@ import {
   createContext,
   useContext,
   useEffect,
+  useLayoutEffect,
+  useCallback,
+  useRef,
   useState,
   type PropsWithChildren,
 } from "react";
@@ -58,24 +61,29 @@ export function BookPreferencesProvider({ children }: PropsWithChildren) {
   const [prefs, setPrefs] = useState<Preferences>(() =>
     normalizePreferences(storageGet(storageKey("prefs"), {})),
   );
+  const prefsRef = useRef(prefs);
   const [bookmarked, setBookmarked] = useState<string[]>(() => {
     const saved = storageGet<unknown>(storageKey("bookmarks"), []);
     return Array.isArray(saved)
       ? saved.filter((item): item is string => typeof item === "string")
       : [];
   });
-  const update = (patch: Partial<Preferences>) =>
-    setPrefs((old) => normalizePreferences({ ...old, ...patch }));
+  const update = useCallback((patch: Partial<Preferences>) => {
+    const next = normalizePreferences({ ...prefsRef.current, ...patch });
+    prefsRef.current = next;
+    // Persist before a link or reload can unload the current document.
+    storageSet(storageKey("prefs"), next);
+    setPrefs(next);
+  }, []);
   const toggleBookmark = (id: string) =>
     setBookmarked((old) =>
       old.includes(id) ? old.filter((x) => x !== id) : [...old, id],
     );
-  useEffect(() => storageSet(storageKey("prefs"), prefs), [prefs]);
   useEffect(
     () => storageSet(storageKey("bookmarks"), bookmarked),
     [bookmarked],
   );
-  useEffect(() => {
+  useLayoutEffect(() => {
     const root = document.documentElement;
     root.lang = prefs.locale;
     root.dir = language(prefs.locale).direction;
