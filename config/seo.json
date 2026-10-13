@@ -1,0 +1,15 @@
+{
+  "indexable": true,
+  "robots": "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1",
+  "structuredData": true,
+  "googleSiteVerification": "Qr_sSrz4zRPgH6qcQWSyVWXR1O3zGV-5SHne3azQyoU",
+  "socialImage": "images/social-card.png",
+  "socialImageWidth": 1200,
+  "socialImageHeight": 630,
+  "twitterCard": "summary_large_image",
+  "twitterSite": "",
+  "openGraphLocales": {
+    "fa": "fa_IR",
+    "en": "en_US"
+  }
+}
