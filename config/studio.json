@@ -1,0 +1,184 @@
+{
+  "name": "{brand} Studio",
+  "defaultView": "split",
+  "sidebar": true,
+  "metadataOpen": false,
+  "assetTrayOpen": false,
+  "enabledViews": ["source", "split", "preview", "visual"],
+  "starterFilename": "my-new-chapter.mdx",
+  "newChapterOrder": 99,
+  "maxImageBytes": 15000000,
+  "bundleFilename": "{id}-workspace.zip",
+  "importInstructionsFilename": "HOW-TO-IMPORT.txt",
+  "importInstructions": "{brand} browser-only studio export\n\nCopy the src/content and public folders from this archive to the ROOT of your repository.\nReview changes, commit and push to main to publish.\n\nChapters: {chapters}\nImages: {images}\n",
+  "starterSources": {
+    "fa": "---\nid: my-new-chapter\ntitle: \"فصل تازه\"\ndescription: \"توضیح کوتاهی دربارهٔ این فصل\"\norder: 20\ncategory: \"بخش جدید\"\ntranslationKey: my-new-chapter\n---\n\n# فصل تازه\n\nهر ایدهٔ بزرگی از یک جمله آغاز می‌شود. اینجا بنویسید...\n\n## اولین بخش\n\nمتن خود را اضافه کنید. **با Mobi، نوشتن آسان است.**\n",
+    "en": "---\nid: my-new-chapter\ntitle: New chapter\ndescription: A short description of this chapter\norder: 20\ncategory: New section\ntranslationKey: my-new-chapter\n---\n\n# New chapter\n\nEvery great idea starts with a sentence. Write yours here…\n\n## First section\n\nAdd your text here. **Writing is easy.**\n"
+  },
+  "snippets": [
+    {
+      "icon": "Type",
+      "label": {
+        "fa": "تیتر",
+        "en": "Heading"
+      },
+      "text": {
+        "fa": "\n## عنوان جدید\n",
+        "en": "\n## New heading\n"
+      }
+    },
+    {
+      "icon": "Bold",
+      "label": {
+        "fa": "درشت",
+        "en": "Bold"
+      },
+      "text": {
+        "fa": "**متن مهم**",
+        "en": "**Important text**"
+      }
+    },
+    {
+      "icon": "Italic",
+      "label": {
+        "fa": "مایل",
+        "en": "Italic"
+      },
+      "text": {
+        "fa": "*متن مورب*",
+        "en": "*Emphasized text*"
+      }
+    },
+    {
+      "icon": "Link2",
+      "label": {
+        "fa": "لینک",
+        "en": "Link"
+      },
+      "text": {
+        "fa": "[متن لینک](https://example.com)",
+        "en": "[Link text](https://example.com)"
+      }
+    },
+    {
+      "icon": "ImagePlus",
+      "label": {
+        "fa": "تصویر",
+        "en": "Image"
+      },
+      "text": {
+        "fa": "\n![توضیح تصویر](images/example.webp)\n",
+        "en": "\n![Image description](images/example.webp)\n"
+      }
+    },
+    {
+      "icon": "Code2",
+      "label": {
+        "fa": "کد",
+        "en": "Code"
+      },
+      "text": {
+        "fa": "\n```typescript\nconsole.log(\"Hello, {brand}!\")\n```\n",
+        "en": "\n```typescript\nconsole.log(\"Hello, {brand}!\")\n```\n"
+      }
+    },
+    {
+      "icon": "Sigma",
+      "label": {
+        "fa": "فرمول",
+        "en": "Math"
+      },
+      "text": {
+        "fa": "\n$$\nE = mc^2\n$$\n",
+        "en": "\n$$\nE = mc^2\n$$\n"
+      }
+    },
+    {
+      "icon": "Layers3",
+      "label": {
+        "fa": "نمودار",
+        "en": "Diagram"
+      },
+      "text": {
+        "fa": "\n```mermaid\nflowchart LR\n  A[Idea] --> B[Book] --> C[Publish]\n```\n",
+        "en": "\n```mermaid\nflowchart LR\n  A[Idea] --> B[Book] --> C[Publish]\n```\n"
+      }
+    },
+    {
+      "icon": "Quote",
+      "label": {
+        "fa": "نقل‌قول",
+        "en": "Quote"
+      },
+      "text": {
+        "fa": "\n> این یک نقل‌قول زیباست.\n",
+        "en": "\n> Write your quotation here.\n"
+      }
+    },
+    {
+      "icon": "Table2",
+      "label": {
+        "fa": "جدول",
+        "en": "Table"
+      },
+      "text": {
+        "fa": "\n| ستون اول | ستون دوم |\n| --- | --- |\n| مقدار ۱ | مقدار ۲ |\n",
+        "en": "\n| First column | Second column |\n| --- | --- |\n| Value 1 | Value 2 |\n"
+      }
+    },
+    {
+      "icon": "List",
+      "label": {
+        "fa": "فهرست",
+        "en": "List"
+      },
+      "text": {
+        "fa": "\n- مورد اول\n- مورد دوم\n",
+        "en": "\n- First item\n- Second item\n"
+      }
+    },
+    {
+      "icon": "Lightbulb",
+      "label": {
+        "fa": "نکته",
+        "en": "Callout"
+      },
+      "text": {
+        "fa": "\n<Callout type=\"tip\" title=\"نکته\">\n  توضیحات اینجا قرار می‌گیرد.\n</Callout>\n",
+        "en": "\n<Callout type=\"tip\" title=\"Tip\">\n  Add your explanation here.\n</Callout>\n"
+      }
+    },
+    {
+      "icon": "Hash",
+      "label": {
+        "fa": "ارجاع",
+        "en": "Book ref"
+      },
+      "text": {
+        "fa": "[[chapter:preface]]",
+        "en": "[[chapter:preface]]"
+      }
+    }
+  ],
+  "codeLanguages": {
+    "js": "JavaScript",
+    "ts": "TypeScript",
+    "tsx": "TSX",
+    "python": "Python",
+    "bash": "Bash",
+    "json": "JSON",
+    "css": "CSS",
+    "text": "Plain text"
+  },
+  "defaultCodeLanguage": "typescript",
+  "newChapterPrefix": "chapter",
+  "newChapterSources": {
+    "fa": "---\nid: {id}\ntitle: {title}\norder: {order}\n---\n\n# {title}\n\n",
+    "en": "---\nid: {id}\ntitle: {title}\norder: {order}\n---\n\n# {title}\n\n"
+  },
+  "minChapterOrder": 1,
+  "defaultExtension": ".mdx",
+  "fallbackFilenameStem": "new-chapter",
+  "importDefaultOrder": 20,
+  "importDefaultLocale": "fa"
+}
