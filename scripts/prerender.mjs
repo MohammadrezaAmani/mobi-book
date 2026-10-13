@@ -1,170 +1,179 @@
-/**
- * GitHub Pages does not provide SPA rewrites. Generate a real index.html for
- * each route, including minimal semantic HTML for search engines and no-JS clients.
- * React replaces this static fallback on startup. Asset URLs are Vite-base aware.
- */
-import { readFile, writeFile, mkdir, copyFile } from "node:fs/promises";
+/** Generate complete static pages that remain indexable before and after React starts. */
+import { readFile, writeFile, mkdir } from "node:fs/promises";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
-import { escapeHtml, parseFrontmatter } from "./content-utils.mjs";
+import { createElement } from "react";
+import { renderToStaticMarkup } from "react-dom/server";
+import { MemoryRouter } from "react-router-dom";
+import { createServer } from "vite";
+import { escapeHtml } from "./content-utils.mjs";
 import { loadBookConfig } from "./load-book-config.mjs";
 import { configCss } from "./config-utils.mjs";
-import { homeMode, routeHref } from "./routing.mjs";
+import { homeMode, normalizeBase } from "./routing.mjs";
+import { buildPageSeo, replaceSeoHead } from "./seo.mjs";
 
 const config = await loadBookConfig();
-const defaultLocale = config.defaultLocale;
-
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const dist = path.join(root, "dist");
 const chapters = JSON.parse(
   await readFile(path.join(root, "src/generated/manifest.json"), "utf8"),
 );
 const template = await readFile(path.join(dist, "index.html"), "utf8");
-const rawBase = process.env.VITE_BASE_PATH || "/";
-const trimmedBase = rawBase.replace(/^\/+|\/+$/g, "");
-const base = trimmedBase ? `/${trimmedBase}/` : "/";
-const site = (process.env.VITE_SITE_URL || config.siteUrl).replace(/\/$/, "");
+const base = normalizeBase(process.env.VITE_BASE_PATH || "/");
+const origin = process.env.VITE_SITE_URL || config.siteUrl;
 const routes = [
-  {
-    path: "library",
-    title: config.messages[defaultLocale].library,
-    summary: config.meta.librarySummary[defaultLocale],
-  },
+  { pathname: "/", locale: config.defaultLocale, home: true },
+  { pathname: "/library/", locale: config.defaultLocale },
+  ...config.locales.map((locale) => ({
+    pathname: `/library/${locale}/`,
+    locale,
+  })),
+  ...chapters.map((chapter) => ({
+    pathname: `/read/${chapter.locale}/${chapter.slug}/`,
+    locale: chapter.locale,
+    chapter,
+  })),
+  ...(config.features.studio
+    ? [{ pathname: "/studio/", locale: config.defaultLocale, studio: true }]
+    : []),
 ];
-if (config.features.studio)
-  routes.push({
-    path: "studio",
-    title: config.studio.name.replace("{brand}", config.brand),
-    summary: config.meta.studioSummary[defaultLocale],
-  });
-for (const ch of chapters)
-  routes.push({
-    path: `read/${ch.locale}/${ch.slug}`,
-    title: ch.title,
-    summary: ch.description,
-    chapter: ch,
-  });
-
-function richTitle(parts) {
-  return parts
-    .map((part) =>
-      part.break
-        ? "<br/>"
-        : part.emphasis
-          ? `<em>${escapeHtml(part.text || "")}</em>`
-          : escapeHtml(part.text || ""),
-    )
-    .join("");
-}
-async function chapterHtml(chapter) {
-  const body = await readFile(
-    path.join(root, "src/content", chapter.file),
-    "utf8",
+const pages = [];
+const server = await createServer({
+  server: { middlewareMode: true, ws: false },
+  logLevel: "error",
+});
+try {
+  const { BookPreferencesProvider } = await server.ssrLoadModule(
+    "/src/hooks/use-book-preferences.tsx",
   );
-  const raw = parseFrontmatter(body).body;
-  // Author content is escaped in the no-JavaScript fallback, never executed.
-  return raw
-    .split("\n")
-    .filter(Boolean)
-    .filter((s) => !/^\s*(<|!\[|\$\$|```|---)/.test(s))
-    .slice(0, 100)
-    .map((line) => {
-      const match = /^(#{1,3})\s+(.+)/.exec(line);
-      if (match)
-        return `<h${match[1].length}>${escapeHtml(match[2])}</h${match[1].length}>`;
-      return `<p>${escapeHtml(line)}</p>`;
-    })
-    .join("\n");
+  const content = await server.ssrLoadModule(
+    "/src/components/book/Content.tsx",
+  );
+  const { Header } = await server.ssrLoadModule(
+    "/src/components/layout/Header.tsx",
+  );
+  const { Library } = await server.ssrLoadModule(
+    "/src/components/book/Library.tsx",
+  );
+  const { Landing } = await server.ssrLoadModule(
+    "/src/components/book/Landing.tsx",
+  );
+  function render(element, item) {
+    return renderToStaticMarkup(
+      createElement(
+        MemoryRouter,
+        {
+          basename: base === "/" ? "/" : base.slice(0, -1),
+          initialEntries: [base + item.pathname.slice(1)],
+        },
+        createElement(
+          BookPreferencesProvider,
+          { initialLocale: item.locale },
+          element,
+        ),
+      ),
+    );
+  }
+  async function chapterBody(chapter, item) {
+    const source = await readFile(
+      path.join(root, "src/content", chapter.file),
+      "utf8",
+    );
+    const element =
+      chapter.format === "mdx"
+        ? createElement(
+            (await server.ssrLoadModule(`/src/content/${chapter.file}`))
+              .default,
+            { components: content.contentComponents },
+          )
+        : createElement(content.MarkdownContent, {
+            text: source,
+            locale: chapter.locale,
+          });
+    const markup = render(element, item).replace(
+      /<h1(?:\s[^>]*)?>[\s\S]*?<\/h1>/,
+      "",
+    );
+    const related = chapters.filter(
+      (ch) => ch.locale === chapter.locale && ch.slug !== chapter.slug,
+    );
+    const translations = chapters.filter(
+      (ch) =>
+        ch.translationKey === chapter.translationKey &&
+        ch.locale !== chapter.locale,
+    );
+    return `<main class="reader-page reader-no-sidebar reader-no-toc"><div class="reader-grid"><div class="reader-main"><div class="reader-article-shell"><header class="reader-article-head"><h1>${escapeHtml(chapter.title)}</h1><p class="article-deck">${escapeHtml(chapter.description)}</p></header><article class="prose-book prose-${escapeHtml(chapter.locale)}" dir="${config.languages[chapter.locale].direction}">${markup}</article><nav aria-label="${escapeHtml(config.messages[chapter.locale].chapters)}">${related.map((ch) => `<p><a href="${escapeHtml(base + `read/${ch.locale}/${ch.slug}/`)}">${escapeHtml(ch.title)}</a></p>`).join("")}${translations.map((ch) => `<p><a hreflang="${escapeHtml(ch.locale)}" href="${escapeHtml(base + `read/${ch.locale}/${ch.slug}/`)}">${escapeHtml(config.languages[ch.locale].label)}</a></p>`).join("")}</nav></div></div></div></main>`;
+  }
+  for (const item of routes) {
+    const mode = item.home ? homeMode(config) : "library";
+    const first = chapters.find((ch) => ch.locale === item.locale);
+    let body;
+    if (item.chapter || (item.home && mode === "reader" && first))
+      body = await chapterBody(item.chapter || first, item);
+    else if (item.studio || (item.home && mode === "studio"))
+      body = `<main class="section-wrap"><h1>${escapeHtml(config.studio.name.replace("{brand}", config.brand))}</h1><p>${escapeHtml(config.meta.studioSummary[item.locale])}</p></main>`;
+    else
+      body = render(
+        createElement(item.home && mode === "landing" ? Landing : Library),
+        item,
+      );
+    const languages = config.locales
+      .map(
+        (locale) =>
+          `<a hreflang="${escapeHtml(locale)}" href="${escapeHtml(base + (locale === config.defaultLocale && homeMode(config) === "library" ? "" : `library/${locale}/`))}">${escapeHtml(config.languages[locale].label)}</a>`,
+      )
+      .join(" · ");
+    body = `<div class="app-shell">${render(createElement(Header, { onSearch() {}, onSettings() {} }), item)}${body}<nav class="section-wrap" aria-label="${escapeHtml(config.messages[item.locale].headerSwitchLanguage)}">${languages}</nav></div>`;
+    const seo = buildPageSeo(config, chapters, { ...item, base, origin });
+    pages.push(seo);
+    const html = replaceSeoHead(template, seo)
+      .replace(
+        /<html[^>]*>/,
+        `<html lang="${escapeHtml(item.locale)}" dir="${config.languages[item.locale].direction}" data-theme="${escapeHtml(config.appearance.defaults.theme)}" data-font="${escapeHtml(config.appearance.defaults.font)}">`,
+      )
+      .replace(
+        /<style id="book-configuration">[\s\S]*?<\/style>/,
+        `<style id="book-configuration">${configCss(config, base, item.locale)}</style>`,
+      )
+      .replace('<div id="root"></div>', `<div id="root">${body}</div>`);
+    const directory = path.join(dist, item.pathname.slice(1));
+    await mkdir(directory, { recursive: true });
+    await writeFile(path.join(directory, "index.html"), html);
+  }
+} finally {
+  await server.close();
 }
-
-const home = config.pages.home;
-const mode = homeMode(config);
-const defaultChapters = chapters.filter((ch) => ch.locale === defaultLocale);
-let homeContent = "";
-if (mode === "reader" && defaultChapters[0])
-  homeContent = await chapterHtml(defaultChapters[0]);
-else if (mode === "library")
-  homeContent = `<h1>${config.pages.library.useBookTitle ? escapeHtml(config.title[defaultLocale]) : richTitle(config.pages.library.title[defaultLocale])}</h1><p>${escapeHtml(config.description[defaultLocale])}</p>${defaultChapters.map((ch) => `<p><a href="${escapeHtml(routeHref(`/read/${ch.locale}/${ch.slug}/`, { base, mode: config.routing.mode }))}">${escapeHtml(ch.title)}</a></p>`).join("")}`;
-else if (mode === "studio")
-  homeContent = `<h1>${escapeHtml(config.studio.name.replace("{brand}", config.brand))}</h1><p>${escapeHtml(config.meta.studioSummary[defaultLocale])}</p>`;
-else
-  homeContent = home.sections
-    .filter((name) => name !== "studio" || config.features.studio)
-    .map((name) => {
-      const section = home[name];
-      const title =
-        name === "featured"
-          ? config.title[defaultLocale]
-          : section.title[defaultLocale];
-      const heading = Array.isArray(title)
-        ? richTitle(title)
-        : escapeHtml(title);
-      const description =
-        name === "featured"
-          ? config.description[defaultLocale]
-          : section.description?.[defaultLocale];
-      const level = name === "hero" ? 1 : 2;
-      return `<section><h${level}>${heading}</h${level}>${description ? `<p>${escapeHtml(description)}</p>` : ""}</section>`;
-    })
-    .join("");
+const errorSeo = buildPageSeo(config, chapters, {
+  pathname: "/__404__/",
+  base,
+  origin,
+});
 await writeFile(
-  path.join(dist, "index.html"),
-  template.replace(
+  path.join(dist, "404.html"),
+  replaceSeoHead(template, errorSeo).replace(
     '<div id="root"></div>',
-    `<div id="root"><main class="prerender-fallback">${homeContent}</main></div>`,
+    `<div id="root"><main class="not-found"><h1>${escapeHtml(config.messages[config.defaultLocale].notFoundCode)}</h1><p>${escapeHtml(config.messages[config.defaultLocale].readerChapterNotFound)}</p><a href="${escapeHtml(base)}">${escapeHtml(config.messages[config.defaultLocale].home)}</a></main></div>`,
   ),
 );
-
-for (const item of routes) {
-  const dir = path.join(dist, item.path);
-  await mkdir(dir, { recursive: true });
-  const locale = item.chapter?.locale || defaultLocale;
-  const dirAttr = config.languages[locale].direction;
-  const pageUrl = `${site}${base}${item.path}/`;
-  const semantic = item.chapter
-    ? await chapterHtml(item.chapter)
-    : `<p>${escapeHtml(item.summary)}</p>`;
-  let html = template
-    .replace(
-      /<html[^>]*>/,
-      `<html lang="${locale}" dir="${dirAttr}" data-theme="${escapeHtml(config.appearance.defaults.theme)}" data-font="${escapeHtml(config.appearance.defaults.font)}">`,
-    )
-    .replace(
-      /<style id="book-configuration">[\s\S]*?<\/style>/,
-      `<style id="book-configuration">${configCss(config, base, locale)}</style>`,
-    )
-    .replace(
-      /<title>[^<]*<\/title>/,
-      `<title>${escapeHtml(item.title + config.meta.titleSeparator + config.title[locale])}</title>`,
-    )
-    .replace(
-      /<meta name="description" content="[^"]*"\s*\/>/,
-      `<meta name="description" content="${escapeHtml(item.summary)}" />`,
-    )
-    .replace(
-      '<div id="root"></div>',
-      `<div id="root"><main class="prerender-fallback" dir="${dirAttr}"><article><h1>${escapeHtml(item.title)}</h1>${semantic}</article></main></div>`,
-    );
-  if (site)
-    html = html.replace(
-      "</head>",
-      `<link rel="canonical" href="${escapeHtml(pageUrl)}" /></head>`,
-    );
-  await writeFile(path.join(dir, "index.html"), html);
-}
-await copyFile(path.join(dist, "index.html"), path.join(dist, "404.html"));
-if (site) {
-  const urls = [
-    base,
-    ...routes.filter((r) => r.chapter).map((r) => `${base}${r.path}/`),
-  ];
+if (origin) {
+  const unique = new Map(
+    pages
+      .filter((page) => page.indexable && page.canonical)
+      .map((page) => [page.canonical, page]),
+  );
+  const urls = [...unique.values()].map(
+    (page) =>
+      `<url><loc>${escapeHtml(page.canonical)}</loc>${page.alternates.map((alternate) => `<xhtml:link rel="alternate" hreflang="${escapeHtml(alternate.locale)}" href="${escapeHtml(alternate.href)}" />`).join("")}</url>`,
+  );
   await writeFile(
     path.join(dist, "sitemap.xml"),
-    `<?xml version="1.0" encoding="UTF-8"?><urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">${urls.map((u) => `<url><loc>${escapeHtml(site + u)}</loc></url>`).join("")}</urlset>`,
+    `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">${urls.join("\n")}</urlset>\n`,
   );
   await writeFile(
     path.join(dist, "robots.txt"),
-    `User-agent: *\nAllow: /\nSitemap: ${site}${base}sitemap.xml\n`,
+    `User-agent: *\nAllow: /\nSitemap: ${new URL(base + "sitemap.xml", origin).href}\n`,
   );
 }
-console.log(`Prerendered ${routes.length} deep-linkable static routes.`);
+console.log(
+  `Prerendered ${routes.length} complete static pages with localized SEO metadata.`,
+);
