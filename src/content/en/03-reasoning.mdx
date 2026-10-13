@@ -1,0 +1,37 @@
+---
+id: reasoning
+title: Thinking clearly
+order: 3
+description: From premises to conclusions — arguments that withstand scrutiny.
+category: Part I · Discover
+translationKey: reasoning
+---
+
+# Thinking clearly
+
+Reasoning is not about being right all the time. It is about making the steps of an argument visible.
+
+<Callout type="note" title="The essential distinction">
+  A valid argument can still begin with false premises. Logical validity and
+  factual truth are not the same thing.
+</Callout>
+
+## An elementary inference
+
+If $P$ implies $Q$, and $P$ is true, then $Q$ follows:
+
+$$
+(P \rightarrow Q) \land P \Rightarrow Q
+$$
+
+The form is called _modus ponens_.
+
+## Readable code
+
+```typescript
+export function implies(p: boolean, q: boolean): boolean {
+  return !p || q;
+}
+```
+
+Understanding a proof and understanding a program often involve the same skill: tracking assumptions carefully.
