@@ -3,6 +3,23 @@ export function normalizeBase(base = "/") {
   return path ? `/${path}/` : "/";
 }
 
+/** Real generated HTML pages keep their pathname for search engines and refresh. */
+export function entryRoutingMode(
+  location,
+  { base = "/", mode = "hash", indexableEntryPoints = true } = {},
+) {
+  if (mode === "browser") return "browser";
+  const prefix = normalizeBase(base);
+  const physical =
+    location.pathname.startsWith(prefix) &&
+    /^\/(?:read|library|studio)(?:\/|$)/.test(
+      `/${location.pathname.slice(prefix.length)}`,
+    );
+  return indexableEntryPoints && physical && !location.hash?.startsWith("#/")
+    ? "browser"
+    : "hash";
+}
+
 /** Public URLs include the deployment folder; React Router paths do not. */
 export function routeHref(path, { base = "/", mode = "hash" } = {}) {
   const logical = path.startsWith("/") ? path : `/${path}`;
