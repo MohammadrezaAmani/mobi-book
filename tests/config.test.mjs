@@ -51,6 +51,8 @@ test("configuration rejects invalid defaults, missing translations and incompati
 test("appearance generates complete CSS with configurable tokens, dimensions, media rules and font URLs", async () => {
   const config = structuredClone(await loadBookConfig());
   config.appearance.defaults.theme = "dark";
+  config.appearance.themes.find((theme) => theme.id === "dark").tokens.bg =
+    "#123456";
   config.appearance.defaults.fontSize = 24;
   config.appearance.layout.headerHeight = "96px";
   config.appearance.styles.push({
@@ -61,7 +63,7 @@ test("appearance generates complete CSS with configurable tokens, dimensions, me
     },
   });
   const css = configCss(config, "/my-book/");
-  assert.match(css, /--bg:#171e1c;/);
+  assert.match(css, /--bg:#123456;/);
   assert.match(css, /--header-height:96px;/);
   assert.match(css, /--reader-font-size:24px;/);
   assert.match(css, /@media[^{}]*\{/);
