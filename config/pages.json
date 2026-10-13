@@ -1,0 +1,456 @@
+{
+  "home": {
+    "mode": "landing",
+    "sections": ["hero", "featured", "reading", "studio", "features", "cta"],
+    "hero": {
+      "eyebrow": {
+        "fa": "فضایی تازه برای خواندن و نوشتن",
+        "en": "A better place for words"
+      },
+      "title": {
+        "fa": [
+          {
+            "text": "هر کتاب، "
+          },
+          {
+            "text": "جهانی",
+            "emphasis": true
+          },
+          {
+            "break": true
+          },
+          {
+            "text": "برای کشف کردن."
+          }
+        ],
+        "en": [
+          {
+            "text": "Every book,"
+          },
+          {
+            "break": true
+          },
+          {
+            "text": "a world",
+            "emphasis": true
+          },
+          {
+            "text": " to explore."
+          }
+        ]
+      },
+      "description": {
+        "fa": "تجربه‌ای آرام و دلنشین برای مطالعه؛ و ابزاری قدرتمند برای نوشتن. با Markdown بنویسید، با سلیقهٔ خود طراحی کنید و مستقیماً روی GitHub Pages منتشر کنید.",
+        "en": "A thoughtful reading experience and a powerful writing studio. Write in Markdown, make it yours, and publish directly to GitHub Pages."
+      },
+      "primaryAction": {
+        "label": {
+          "fa": "شروع مطالعه",
+          "en": "Start reading"
+        },
+        "target": "first-chapter",
+        "icon": "book"
+      },
+      "secondaryAction": {
+        "label": {
+          "fa": "شروع نوشتن",
+          "en": "Start writing"
+        },
+        "target": "studio",
+        "icon": "feather"
+      },
+      "proofMarks": ["F", "M", "✦"],
+      "proofTitle": {
+        "fa": "آزاد، متن‌باز و برای همه",
+        "en": "Open source and yours to own"
+      },
+      "proofDescription": {
+        "fa": "بدون بک‌اند، بدون وابستگی، بدون محدودیت",
+        "en": "No backend. No lock-in. Just your words."
+      },
+      "artLabel": {
+        "fa": "تصویر جلد کتاب",
+        "en": "Book cover illustration"
+      },
+      "coverAlt": {
+        "fa": "جلد {title}",
+        "en": "Book cover: {title}"
+      },
+      "quote": {
+        "fa": "کلمه‌ها، جهان می‌سازند.",
+        "en": "Words shape worlds."
+      },
+      "quoteAttribution": "{brand} Journal — {year}",
+      "footnote": {
+        "fa": "جایی برای مکث، مطالعه و کشف",
+        "en": "A place to pause, read, and discover"
+      },
+      "scrollLabel": {
+        "fa": "برای کشف بیشتر پیمایش کنید",
+        "en": "SCROLL TO EXPLORE"
+      }
+    },
+    "featured": {
+      "eyebrow": {
+        "fa": "01 / کتاب منتخب",
+        "en": "01 / FEATURED BOOK"
+      },
+      "format": "MDX",
+      "formatLabel": {
+        "fa": "قالب",
+        "en": "Format"
+      },
+      "chaptersLabel": {
+        "fa": "فصل",
+        "en": "Chapters"
+      },
+      "languagesLabel": {
+        "fa": "زبان",
+        "en": "Languages"
+      }
+    },
+    "reading": {
+      "eyebrow": {
+        "fa": "02 / تجربه مطالعه",
+        "en": "02 / THE READING EXPERIENCE"
+      },
+      "title": {
+        "fa": [
+          {
+            "text": "برای کتاب‌خوان‌ها،"
+          },
+          {
+            "break": true
+          },
+          {
+            "text": "با ظرافت طراحی شده.",
+            "emphasis": true
+          }
+        ],
+        "en": [
+          {
+            "text": "Made for people"
+          },
+          {
+            "break": true
+          },
+          {
+            "text": "who love to read.",
+            "emphasis": true
+          }
+        ]
+      },
+      "description": {
+        "fa": "از انتخاب فونت و فضای مطالعه تا ناوبری دقیق؛ همه‌چیز برای تمرکز شما روی محتوا طراحی شده.",
+        "en": "Typography that breathes, intuitive navigation, and the kind of detail that makes reading a pleasure."
+      },
+      "previewBrand": "{brand} Reader",
+      "previewCount": 5,
+      "previewChapterId": "curiosity",
+      "previewEyebrow": {
+        "fa": "فصل 02 — کشف",
+        "en": "CHAPTER 02 — DISCOVER"
+      },
+      "previewText": {
+        "fa": "کنجکاوی توانایی دیدن امر آشنا از زاویه‌ای ناآشناست. بیشتر کشف‌های بزرگ از سؤال‌هایی شروع شده‌اند که در نگاه اول کمی عجیب به نظر می‌رسیدند.",
+        "en": "Curiosity is the art of seeing familiar things as though they were new. Every remarkable discovery begins with a question."
+      },
+      "previewQuote": {
+        "fa": "«کیفیت پاسخ‌های ما، اغلب از کیفیت سؤال‌هایمان فراتر نمی‌رود.»",
+        "en": "“A good question changes everything.”"
+      },
+      "features": [
+        {
+          "icon": "feather",
+          "title": {
+            "fa": "تایپوگرافی فکرشده",
+            "en": "Thoughtful typography"
+          },
+          "description": {
+            "fa": "فونت‌های استاندارد فارسی و انگلیسی، اندازهٔ متن و فاصله‌های قابل تنظیم.",
+            "en": "Beautiful reading fonts, adjustable sizes, and generous spacing."
+          }
+        },
+        {
+          "icon": "moon",
+          "title": {
+            "fa": "هر زمان، هر حال‌وهوا",
+            "en": "Your reading, your atmosphere"
+          },
+          "description": {
+            "fa": "تم‌های کاغذی، روشن، تاریک و سبز با تنظیمات ماندگار.",
+            "en": "Paper, midnight, sage, and minimalist reading themes."
+          }
+        },
+        {
+          "icon": "globe",
+          "title": {
+            "fa": "راست‌به‌چپ، همان‌قدر طبیعی",
+            "en": "Bilingual by design"
+          },
+          "description": {
+            "fa": "فارسی و انگلیسی، RTL و LTR، در تمام اجزای خواندن و نوشتن.",
+            "en": "Complete RTL and LTR layouts, with language-aware typography."
+          }
+        }
+      ]
+    },
+    "studio": {
+      "eyebrow": {
+        "fa": "03 / استودیوی نوشتن",
+        "en": "03 / THE WRITING STUDIO"
+      },
+      "title": {
+        "fa": [
+          {
+            "text": "ایده‌ات را بنویس."
+          },
+          {
+            "break": true
+          },
+          {
+            "text": "کتابت را منتشر کن.",
+            "emphasis": true
+          }
+        ],
+        "en": [
+          {
+            "text": "Your words."
+          },
+          {
+            "break": true
+          },
+          {
+            "text": "Your masterpiece.",
+            "emphasis": true
+          }
+        ]
+      },
+      "description": {
+        "fa": "یک استودیوی نویسندگی در خود مرورگر: Markdown و MDX، پیش‌نمایش زنده، فرمول‌های ریاضی، کد، تصویر و دانلود فایل آمادهٔ انتشار.",
+        "en": "The writing studio lives in your browser. Markdown, MDX, live preview, math, code, images, and ready-to-publish files."
+      },
+      "benefits": [
+        {
+          "fa": "بدون نیاز به حساب کاربری",
+          "en": "No account required"
+        },
+        {
+          "fa": "بدون بک‌اند و دیتابیس",
+          "en": "No backend or database"
+        },
+        {
+          "fa": "خروجی واقعی MDX",
+          "en": "Real MDX files"
+        }
+      ],
+      "illustration": {
+        "brand": "{brand}.studio",
+        "saved": {
+          "fa": "● پیش‌نویس ذخیره شد",
+          "en": "● Draft saved"
+        },
+        "toolbar": ["H₁", "𝐁", "𝑖", "⌁", "≡", "∑", "{ }"],
+        "eyebrow": {
+          "fa": "فصل 01",
+          "en": "CHAPTER 01"
+        },
+        "title": {
+          "fa": "شروع یک ماجرا",
+          "en": "A new beginning"
+        },
+        "text": {
+          "fa": "هر ایدهٔ بزرگ از یک کلمه آغاز می‌شود. آن کلمه را بنویسید و ببینید چه دنیایی از دل آن شکل می‌گیرد.",
+          "en": "Every great idea starts with a word. Write that word and see what follows."
+        },
+        "equation": "E = mc²",
+        "placeholder": {
+          "fa": "برای ادامهٔ نوشتن کلیک کنید...",
+          "en": "Start typing your story..."
+        },
+        "format": "Markdown / MDX",
+        "encoding": "UTF-8 · ↗"
+      }
+    },
+    "features": {
+      "eyebrow": {
+        "fa": "04 / جزئیات مهم",
+        "en": "04 / THE DETAILS"
+      },
+      "title": {
+        "fa": [
+          {
+            "text": "هر آنچه یک "
+          },
+          {
+            "text": "کتاب",
+            "emphasis": true
+          },
+          {
+            "text": " نیاز دارد."
+          }
+        ],
+        "en": [
+          {
+            "text": "Everything a "
+          },
+          {
+            "text": "book",
+            "emphasis": true
+          },
+          {
+            "text": " deserves."
+          }
+        ]
+      },
+      "items": [
+        {
+          "icon": "file",
+          "title": {
+            "fa": "Markdown و MDX",
+            "en": "Markdown & MDX"
+          },
+          "description": {
+            "fa": "متن، کامپوننت‌های React، کد، فرمول و محتوای غنی.",
+            "en": "Rich text, React components, code, math, and more."
+          }
+        },
+        {
+          "icon": "globe",
+          "title": {
+            "fa": "چندزبانه و RTL",
+            "en": "Multilingual & RTL"
+          },
+          "description": {
+            "fa": "نمایش و نویسندگی استاندارد فارسی و انگلیسی.",
+            "en": "A natural experience across languages and writing directions."
+          }
+        },
+        {
+          "icon": "layers",
+          "title": {
+            "fa": "ساختار فصل‌ها",
+            "en": "Organized chapters"
+          },
+          "description": {
+            "fa": "فهرست خودکار، ناوبری و آدرس پایدار برای هر فصل.",
+            "en": "Automatic navigation, chapters, and permanent direct links."
+          }
+        },
+        {
+          "icon": "code",
+          "title": {
+            "fa": "انتشار با GitHub",
+            "en": "Deploy with GitHub"
+          },
+          "description": {
+            "fa": "فقط Push کنید؛ انتشار در GitHub Pages خودکار است.",
+            "en": "Push once; GitHub Pages publishes your book for free."
+          }
+        }
+      ]
+    },
+    "cta": {
+      "eyebrow": {
+        "fa": "فصل بعدی از اینجا آغاز می‌شود",
+        "en": "THE NEXT CHAPTER STARTS HERE"
+      },
+      "title": {
+        "fa": "داستان بعدی را تو بنویس.",
+        "en": "Your next chapter is waiting."
+      },
+      "description": {
+        "fa": "همهٔ ابزارها آماده‌اند. فقط یک ایده لازم داری.",
+        "en": "A blank page is all the possibility you need."
+      }
+    },
+    "bookMode": "library"
+  },
+  "library": {
+    "title": {
+      "fa": [
+        {
+          "text": "فصل به فصل، "
+        },
+        {
+          "text": "یک کشف تازه.",
+          "emphasis": true
+        }
+      ],
+      "en": [
+        {
+          "text": "Explore every "
+        },
+        {
+          "text": "chapter.",
+          "emphasis": true
+        }
+      ]
+    },
+    "showBookmarks": true,
+    "showSearch": true,
+    "showOutro": false,
+    "useBookTitle": true,
+    "showCover": true,
+    "showSubtitle": true,
+    "showAuthor": true,
+    "showStartReading": true
+  },
+  "reader": {
+    "sidebar": true,
+    "toc": true,
+    "tocExpanded": true,
+    "progress": true,
+    "print": true,
+    "bookmarks": true,
+    "share": true,
+    "edit": true,
+    "endcard": true,
+    "languageSwitch": true,
+    "backToTop": true,
+    "headingLevels": [2, 3, 4],
+    "scroll": {
+      "topOffset": 120,
+      "bottomOffset": 160,
+      "activeHeadingOffset": 150,
+      "backToTopThreshold": 18
+    }
+  },
+  "footer": {
+    "visible": true,
+    "tagline": {
+      "fa": "داستان‌ها، ایده‌ها و دانش؛ آزاد و در دسترس همه.",
+      "en": "Stories, ideas, and knowledge. Open to everyone."
+    },
+    "credit": {
+      "fa": "با عشق به کلمه‌ها ساخته شده",
+      "en": "Made for the love of words"
+    },
+    "links": [
+      {
+        "label": {
+          "fa": "فهرست فصل‌ها",
+          "en": "All chapters"
+        },
+        "target": "library",
+        "icon": "arrow"
+      },
+      {
+        "label": {
+          "fa": "استودیو کتاب",
+          "en": "Book Studio"
+        },
+        "target": "studio",
+        "icon": "arrow"
+      },
+      {
+        "label": {
+          "fa": "GitHub",
+          "en": "GitHub"
+        },
+        "target": "repository",
+        "icon": "github"
+      }
+    ]
+  }
+}
