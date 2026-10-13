@@ -12,6 +12,7 @@ import { readFileSync } from "node:fs";
 import { makeBookReferences } from "./scripts/remark-book-refs.mjs";
 import { bookConfig } from "./book.config";
 import { configCss, validateConfig } from "./scripts/config-utils.mjs";
+import { buildPageSeo, replaceSeoHead } from "./scripts/seo.mjs";
 
 validateConfig(bookConfig);
 
@@ -54,7 +55,7 @@ export default defineConfig({
         const theme = bookConfig.appearance.themes.find(
           (item) => item.id === bookConfig.appearance.defaults.theme,
         )!;
-        return html
+        const document = html
           .replace("__BOOK_LOCALE__", escape(locale))
           .replace("__BOOK_DIRECTION__", bookConfig.languages[locale].direction)
           .replace(
@@ -86,6 +87,13 @@ export default defineConfig({
             "</head>",
             `<style id="book-configuration">${configCss(bookConfig, base)}</style></head>`,
           );
+        return replaceSeoHead(
+          document,
+          buildPageSeo(bookConfig, chapters, {
+            base,
+            origin: process.env.VITE_SITE_URL || bookConfig.siteUrl,
+          }),
+        );
       },
     },
     {
