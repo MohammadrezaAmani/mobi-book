@@ -115,6 +115,9 @@ test("unavailable pages, Studio and disabled indexing never advertise indexable 
   }
   enabled.seo.indexable = false;
   assert.equal(buildPageSeo(enabled, chapters, publishing).indexable, false);
+  enabled.seo.indexable = true;
+  enabled.pages.home.mode = "studio";
+  assert.equal(buildPageSeo(enabled, chapters, publishing).indexable, false);
 });
 
 test("metadata is replaced once and escaped safely for HTML and JSON-LD", () => {

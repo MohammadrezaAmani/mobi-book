@@ -36,7 +36,10 @@ export function buildPageSeo(
   locale = chapter?.locale || localeMatch?.[1] || locale;
   if (!config.locales.includes(locale)) locale = config.defaultLocale;
   const bookTitle = localized(config.title, locale, config);
-  const studio = config.features.studio && /^\/studio(?:\/|$)/.test(pathname);
+  const studio =
+    config.features.studio &&
+    (/^\/studio(?:\/|$)/.test(pathname) ||
+      (pathname === "/" && homeMode(config) === "studio"));
   const known = Boolean(
     chapter ||
     pathname === "/" ||
@@ -144,7 +147,7 @@ export function buildPageSeo(
 
   let structuredData;
   if (canonical && indexable && config.seo.structuredData) {
-    const homeUrl = absolute(canonicalPath(config, "/", locale));
+    const homeUrl = absolute(canonicalPath(config, "/library/", locale));
     const bookId = homeUrl + "#book";
     const book = {
       "@type": "Book",

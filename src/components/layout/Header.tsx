@@ -91,9 +91,9 @@ export function Header({
               aria-label={tr.headerSwitchLanguage}
             >
               <Globe2 size={config.appearance.iconSizes["19"]} />
-              <span className="locale-label">
+              {/* <span className="locale-label">
                 {language(prefs.locale).shortLabel}
-              </span>
+              </span> */}
             </button>
           )}
           {config.features.settings && (

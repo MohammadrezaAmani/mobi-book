@@ -81,6 +81,9 @@ export function BookPreferencesProvider({
     storageSet(storageKey("prefs"), next);
     setPrefs(next);
   }, []);
+  useLayoutEffect(() => {
+    storageSet(storageKey("prefs"), prefsRef.current);
+  }, []);
   const toggleBookmark = (id: string) =>
     setBookmarked((old) =>
       old.includes(id) ? old.filter((x) => x !== id) : [...old, id],
