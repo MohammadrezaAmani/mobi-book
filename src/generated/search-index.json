@@ -1,0 +1,98 @@
+[
+  {
+    "id": "en/01-preface",
+    "locale": "en",
+    "slug": "01-preface",
+    "title": "A note before we begin",
+    "description": "Every meaningful journey starts with a question.",
+    "body": "A note before we begin The beginning of wisdom is curiosity. This is a book about thinking with care . We will explore how questions become hypotheses, how hypotheses become arguments, and how ideas turn into things worth sharing. An invitation Great ideas do not require complicated language. They require attention, imagination, and the willingness to change one's mind. - Ask better questions. - Look for evidence. - Write down what you learn. - Stay curious. This example book is written in Markdown and published as a static React website with Mobi."
+  },
+  {
+    "id": "en/02-curiosity",
+    "locale": "en",
+    "slug": "02-curiosity",
+    "title": "The power of curiosity",
+    "description": "How simple questions open unfamiliar worlds.",
+    "body": "The power of curiosity Curiosity is the art of seeing familiar things as though they were new. Better questions Instead of asking why an approach failed, ask what assumptions made it appear reasonable in the first place. The quality of our answers rarely exceeds the quality of our questions. A practical exercise 1. Choose an everyday phenomenon. 2. Write five questions about it. 3. Propose two explanations for each question. 4. Ask what evidence would prove you wrong. Approach Main question Outcome ----------- -------------- ----------- Observation What happened? Description Explanation Why? Hypothesis Experiment How to test? Evidence"
+  },
+  {
+    "id": "en/03-reasoning",
+    "locale": "en",
+    "slug": "03-reasoning",
+    "title": "Thinking clearly",
+    "description": "From premises to conclusions — arguments that withstand scrutiny.",
+    "body": "Thinking clearly Reasoning is not about being right all the time. It is about making the steps of an argument visible. A valid argument can still begin with false premises. Logical validity and factual truth are not the same thing. An elementary inference If $P$ implies $Q$, and $P$ is true, then $Q$ follows: The form is called modus ponens . Readable code Understanding a proof and understanding a program often involve the same skill: tracking assumptions carefully."
+  },
+  {
+    "id": "en/04-mathematics",
+    "locale": "en",
+    "slug": "04-mathematics",
+    "title": "The beauty of mathematics",
+    "description": "Discovering structure in the language of patterns.",
+    "body": "The beauty of mathematics Mathematics is a language for structures and patterns. A striking identity One of its most beautiful relationships is Euler's identity: Five important constants appear together in a single line. Both inline expressions like $x^2$ and display equations are typeset using KaTeX."
+  },
+  {
+    "id": "en/05-writing",
+    "locale": "en",
+    "slug": "05-writing",
+    "title": "Writing in the open",
+    "description": "The lasting value of plain text, Git, and a beautiful reading experience.",
+    "body": "Writing in the open Text should belong to its author. A book composed of ordinary Markdown files is portable, reviewable, and easy to preserve. A small document With a GitHub repository and a static publishing workflow, your book can be online without a database or an application server."
+  },
+  {
+    "id": "fa/01-preface",
+    "locale": "fa",
+    "slug": "01-preface",
+    "title": "پیشگفتار",
+    "description": "از اینجا، سفر ما در دنیای ایده‌ها آغاز می‌شود.",
+    "body": "پیشگفتار «پرسیدن، آغازِ دانستن است.» هر کتاب با پرسشی شروع می‌شود. گاهی پرسش ساده است: چرا آسمان آبی است؟ و گاهی آن‌قدر بزرگ که تمام زندگی ما را در بر می‌گیرد: چگونه باید فکر کنیم؟ چه چیزی را می‌توانیم بدانیم؟ و از کجا مطمئن شویم که آنچه می‌دانیم، درست است؟ این کتاب دربارهٔ پاسخ‌های نهایی نیست؛ دربارهٔ مسیر رسیدن به پاسخ‌هاست. دربارهٔ آن لحظهٔ شگفت‌انگیزی که قطعه‌های پراکندهٔ یک مسئله کنار هم قرار می‌گیرند و چیزی تازه شکل می‌گیرد. چرا این کتاب را بخوانیم؟ ما هر روز هزاران تصمیم کوچک و بزرگ می‌گیریم. در دنیایی که اطلاعات بی‌پایان است، توانایی خوب فکر کردن از به‌خاطر سپردن اطلاعات مهم‌تر شده است. - شفاف فکر کنیم: مسئله را از فرض‌ها جدا کنیم. - کنجکاو بمانیم: به اولین پاسخ اکتفا نکنیم. - با دقت بنویسیم: ایده‌ها را به زبان ساده بیان کنیم. - با هم یاد بگیریم: گفت‌وگو را جایگزین قطعیت بی‌دلیل کنیم. چگونه از این کتاب استفاده کنیم؟ می‌توانید آن را از ابتدا تا انتها بخوانید یا از فهرست کنار صفحه به موضوع مورد علاقه‌تان بروید. روی هر عنوان می‌توانید لینک مستقیم دریافت کنید. اندازهٔ فونت و حالت مطالعه را هم از بخش تنظیمات تغییر دهید. این کتاب یک نمونهٔ واقعی از Mobi است؛ تمام صفحاتش از Markdown و MDX تولید شده‌اند و مستقیماً از GitHub Pages قابل انتشارند. --- «بهترین کتاب‌ها پایان ندارند؛ نقطهٔ شروع گفت‌وگویی تازه‌اند.»"
+  },
+  {
+    "id": "fa/02-curiosity",
+    "locale": "fa",
+    "slug": "02-curiosity",
+    "title": "قدرتِ کنجکاوی",
+    "description": "چگونه یک سؤال ساده می‌تواند دریچه‌ای به جهانی تازه باز کند.",
+    "body": "قدرتِ کنجکاوی کنجکاوی توانایی دیدن امر آشنا از زاویه‌ای ناآشناست. بیشتر کشف‌های بزرگ از سؤال‌هایی شروع شده‌اند که در نگاه اول کمی عجیب به نظر می‌رسیدند. هنر طرح مسئله یک سؤال خوب، تنها به دنبال پاسخ نیست؛ مرزهای دانسته‌های ما را روشن می‌کند. کیفیت پاسخ‌های ما، اغلب از کیفیت سؤال‌هایی که می‌پرسیم فراتر نمی‌رود. به‌جای اینکه بپرسیم «چرا این راه‌حل کار نمی‌کند؟»، می‌توانیم بپرسیم «چه فرضی دربارهٔ مسئله داشته‌ایم که ممکن است نادرست باشد؟» همین جابه‌جایی کوچک، فضای راه‌حل را تغییر می‌دهد. تمرین مشاهده 1. یک پدیدهٔ روزمره انتخاب کنید. 2. پنج سؤال دربارهٔ آن بنویسید. 3. برای هر سؤال، دست‌کم دو فرضیه بسازید. 4. مشخص کنید چه چیزی می‌تواند فرضیه‌ها را رد کند. از سؤال تا پژوهش پژوهش با پذیرش عدم قطعیت آغاز می‌شود. یک پژوهشگر خوب می‌داند که داده، تفسیر و باور سه چیز متفاوت‌اند. در فصل [[chapter:reasoning]] این تفاوت را دقیق‌تر بررسی می‌کنیم. رویکرد پرسش اصلی نتیجه ------- --------------------------- ------- مشاهده چه اتفاقی افتاده؟ توصیف تبیین چرا اتفاق افتاده؟ فرضیه آزمایش چگونه می‌سنجیم؟ شواهد بازنگری چه چیزی را باید اصلاح کنیم؟ یادگیری"
+  },
+  {
+    "id": "fa/03-reasoning",
+    "locale": "fa",
+    "slug": "03-reasoning",
+    "title": "منطقِ روشن",
+    "description": "از مقدمات تا نتیجه؛ ساختن استدلال‌هایی که تاب بررسی دارند.",
+    "body": "منطقِ روشن فکر کردن روشن، به معنی همیشه درست بودن نیست؛ به معنی توانایی دیدن مسیر استدلال و تشخیص نقطه‌های ضعف آن است. یک استدلال معتبر، لزوماً مقدمات درستی ندارد. اعتبار منطقی و صدق مقدمات دو ویژگی متفاوت‌اند. ساختار یک استدلال فرض کنید دو گزاره داریم: اگر باران ببارد، زمین خیس می‌شود؛ و اکنون باران می‌بارد. آن‌گاه نتیجه می‌گیریم زمین خیس است. به این الگو وضع مقدم یا Modus Ponens می‌گویند. منطق در برنامه‌نویسی منطق در کد هم حضور دارد. تابع زیر یک مثال ساده از بررسی فرض است: مغالطه‌ها را بشناسیم استدلال ممکن است از نظر ظاهری قانع‌کننده باشد، اما از الگوی معتبری پیروی نکند. یکی از خطاهای متداول، تأیید تالی است: «اگر P آنگاه Q؛ اکنون Q؛ پس P». چنین نتیجه‌ای لزوماً درست نیست. پیش از پذیرفتن نتیجه، از خود بپرسید: آیا ممکن است مقدمات درست باشند ولی نتیجه غلط از آب درآید؟ نمودار جریان استدلال"
+  },
+  {
+    "id": "fa/04-mathematics",
+    "locale": "fa",
+    "slug": "04-mathematics",
+    "title": "زیباییِ ریاضیات",
+    "description": "فرمول‌ها، نمادها و کشف نظمی که زیر ظاهر جهان پنهان است.",
+    "body": "زیباییِ ریاضیات ریاضیات زبان الگوهاست؛ زبانی که گاه با چند نماد، چیزی را بیان می‌کند که در هزاران کلمه نمی‌گنجد. مفهوم تابع تابع به هر ورودی مجاز، دقیقاً یک خروجی نسبت می‌دهد. به‌عنوان نمونه: این عبارت شکل یک سهمی را توصیف می‌کند. نقطهٔ کمینهٔ آن $x=-1$ است. یک اتحاد مشهور اتحاد اویلر پیوندی شگفت‌انگیز میان ثابت‌های مهم ریاضیات ایجاد می‌کند: در یک رابطهٔ کوتاه، عددهای $e$، $i$، $\\pi$، $1$ و $0$ کنار یکدیگر قرار گرفته‌اند. {String.raw x = \\frac{-b \\pm \\sqrt{b^2-4ac}}{2a} } یک جدول کوچک تابع مشتق :------- :--------- $x^n$ $nx^{n-1}$ $\\sin x$ $\\cos x$ $e^x$ $e^x$ فرمول‌های این صفحه با KaTeX نمایش داده می‌شوند. فایل اصلی فصل همچنان متن MDX معمولی است."
+  },
+  {
+    "id": "fa/05-creativity",
+    "locale": "fa",
+    "slug": "05-creativity",
+    "title": "معماریِ خلاقیت",
+    "description": "خلاقیت بیش از الهام است؛ می‌توان برای آن فرایند ساخت.",
+    "body": "معماریِ خلاقیت خلاقیت الزاماً به معنای ساخت چیزی کاملاً بی‌سابقه نیست. گاهی یافتن رابطه‌ای تازه میان ایده‌های آشنا، دستاوردی بزرگ‌تر است. فاصله گرفتن از پاسخ اول مغز ما دوست دارد سریع‌ترین توضیح ممکن را پیدا کند. این ویژگی در تصمیم‌های روزمره مفید است، اما در حل مسئله می‌تواند محدودکننده باشد. قاعدهٔ ده ایده: پیش از انتخاب راه‌حل، ده ایده بنویسید؛ حتی اگر بعضی از آن‌ها به نظر عجیب برسند. تفکر واگرا و همگرا تفکر واگرا تعداد زیادی امکان ایجاد می‌کند. تفکر همگرا آن‌ها را با معیارهای روشن می‌سنجد. خلاقیت مؤثر معمولاً به هر دو نیاز دارد. - مرحلهٔ اکتشاف: تولید ایده بدون قضاوت زودهنگام. - مرحلهٔ ترکیب: پیوند عناصر مفید به یکدیگر. - مرحلهٔ آزمایش: ساخت نمونهٔ کوچک و دریافت بازخورد. - مرحلهٔ پالایش: حذف پیچیدگی‌های بی‌ضرورت. تمرین یک محصول روزمره را انتخاب کنید و تصور کنید باید آن را بدون یکی از ویژگی‌های اصلی‌اش دوباره طراحی کنید. چه چیزی تغییر می‌کند؟"
+  },
+  {
+    "id": "fa/06-digital-writing",
+    "locale": "fa",
+    "slug": "06-digital-writing",
+    "title": "نوشتن در عصر دیجیتال",
+    "description": "از Markdown تا کتابی تعاملی، قابل جست‌وجو و ماندگار.",
+    "body": "نوشتن در عصر دیجیتال برای نوشتن یک کتاب عالی، نباید با ابزار نوشتن بجنگیم. بهتر است قالب محتوا ساده و خروجی آن انعطاف‌پذیر باشد. یک فایل Markdown را می‌توان با هر ویرایشگر متنی باز کرد. محتوا به محصول یا سرویس خاصی وابسته نیست. یک سند ساده از متن تا تجربهٔ تعاملی MDX این امکان را می‌دهد که کنار متن، کامپوننت‌های React هم داشته باشیم. همین فصل نمونه‌ای از MDX است. محتوا باید متعلق به نویسنده باشد؛ نه به ابزار نمایش آن. نسخه‌پذیری و همکاری تغییرات کتاب در Git ذخیره می‌شوند. می‌توان اصلاحات را مرور کرد، با Pull Request پیشنهاد دریافت کرد و هر نسخه را دوباره منتشر کرد."
+  },
+  {
+    "id": "fa/07-future",
+    "locale": "fa",
+    "slug": "07-future",
+    "title": "آینده از آنِ پرسش‌هاست",
+    "description": "دربارهٔ یادگیری مستمر و توان بازاندیشی در یک جهان متغیر.",
+    "body": "آینده از آنِ پرسش‌هاست آینده به‌ندرت مطابق پیش‌بینی‌های دقیق ما پیش می‌رود. اما می‌توانیم خود را برای مواجهه با آن آماده کنیم: با یادگیری، با گفت‌وگو و با توانایی تغییر نظر در برابر شواهد جدید. مهارتِ دوباره آموختن هرچه دانش گسترده‌تر می‌شود، فروتنی فکری ارزش بیشتری پیدا می‌کند. اینکه بتوانیم بگوییم «هنوز نمی‌دانم»، نه نشانهٔ ضعف، بلکه آغاز یادگیری است. ادامهٔ مسیر اگر این کتاب توانسته باشد حتی یک سؤال تازه در ذهن شما ایجاد کند، مأموریت خود را انجام داده است. --- پایان کتاب؛ آغاز کنجکاوی."
+  }
+]
