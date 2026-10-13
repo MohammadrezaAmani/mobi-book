@@ -57,9 +57,15 @@ type ContextValue = {
 };
 const Context = createContext<ContextValue | null>(null);
 
-export function BookPreferencesProvider({ children }: PropsWithChildren) {
+export function BookPreferencesProvider({
+  children,
+  initialLocale,
+}: PropsWithChildren<{ initialLocale?: Locale }>) {
   const [prefs, setPrefs] = useState<Preferences>(() =>
-    normalizePreferences(storageGet(storageKey("prefs"), {})),
+    normalizePreferences({
+      ...storageGet<Partial<Preferences>>(storageKey("prefs"), {}),
+      ...(initialLocale ? { locale: initialLocale } : {}),
+    }),
   );
   const prefsRef = useRef(prefs);
   const [bookmarked, setBookmarked] = useState<string[]>(() => {
