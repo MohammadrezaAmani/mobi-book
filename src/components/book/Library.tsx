@@ -1,5 +1,5 @@
-import { useMemo, useState } from "react";
-import { Link } from "react-router-dom";
+import { useEffect, useMemo, useState } from "react";
+import { Link, useParams } from "react-router-dom";
 import {
   ArrowUpLeft,
   ArrowUpRight,
@@ -27,10 +27,15 @@ import { Footer } from "@/components/layout/Footer";
 import { Button } from "@/components/ui/button";
 
 export function Library() {
-  const { prefs, bookmarked } = useBookPreferences(),
+  const { locale } = useParams();
+  const { prefs, bookmarked, update } = useBookPreferences(),
     tr = t(prefs.locale),
     rtl = isRtl(prefs.locale),
     arr = useMemo(() => getChapters(prefs.locale), [prefs.locale]);
+  useEffect(() => {
+    if (locale && config.locales.includes(locale) && prefs.locale !== locale)
+      update({ locale });
+  }, [locale, prefs.locale, update]);
   const [query, setQuery] = useState(""),
     [onlySaved, setOnlySaved] = useState(false);
   const filtered = useMemo(
