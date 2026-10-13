@@ -165,6 +165,36 @@ export function validateConfig(config) {
     "Unknown routing mode",
   );
   check(
+    typeof config.routing.indexableEntryPoints === "boolean",
+    "indexableEntryPoints must be boolean",
+  );
+  check(
+    typeof config.seo.indexable === "boolean",
+    "SEO indexable must be boolean",
+  );
+  check(
+    typeof config.seo.robots === "string" && config.seo.robots.length > 0,
+    "SEO robots directives are required",
+  );
+  check(
+    ["summary", "summary_large_image"].includes(config.seo.twitterCard),
+    "Unknown Twitter card type",
+  );
+  if (config.siteUrl) {
+    try {
+      const url = new URL(config.siteUrl);
+      check(
+        ["http:", "https:"].includes(url.protocol) &&
+          url.pathname === "/" &&
+          !url.search &&
+          !url.hash,
+        "siteUrl must be an HTTP(S) origin without a path",
+      );
+    } catch {
+      errors.push("siteUrl must be a valid HTTP(S) origin");
+    }
+  }
+  check(
     typeof config.features.studio === "boolean" &&
       typeof config.features.landingPage === "boolean",
     "Studio and landingPage switches must be boolean",
