@@ -4,6 +4,7 @@ import messages from "./config/messages.json" with { type: "json" };
 import pages from "./config/pages.json" with { type: "json" };
 import studio from "./config/studio.json" with { type: "json" };
 import styles from "./config/styles.json" with { type: "json" };
+import seo from "./config/seo.json" with { type: "json" };
 
 export type StyleRule = {
   selector?: string;
@@ -73,7 +74,8 @@ export const bookConfig = {
       readingSpeed: number;
     }
   >,
-  siteUrl: "", // Site origin for canonical URLs; VITE_SITE_URL overrides this at build time.
+  siteUrl: "https://mohammadrezaamani.github.io", // Site origin; VITE_SITE_URL overrides it at build time.
+  seo,
   license: "CC BY 4.0",
   favicon: "favicon.svg",
   brandLogo: "", // Optional image URL; the book icon is used when empty.
@@ -119,7 +121,10 @@ export const bookConfig = {
     studio: false, // Enable the browser authoring tools when needed.
     landingPage: false, // Enable the Mobi introduction/marketing page.
   },
-  routing: { mode: "hash" as "hash" | "browser" },
+  routing: {
+    mode: "hash" as "hash" | "browser",
+    indexableEntryPoints: true,
+  },
   search: {
     maxResults: 12,
     snippetBefore: 75,
