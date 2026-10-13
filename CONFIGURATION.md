@@ -10,6 +10,7 @@
 | [`config/styles.json`](./config/styles.json)               | تمام قواعد ظاهر: فاصله‌ها، اندازه‌ها، گوشه‌ها، سایه‌ها، انیمیشن، چاپ و breakpointها              |
 | [`config/studio.json`](./config/studio.json)               | قالب فصل‌ها، snippetها، حالت اولیهٔ ویرایشگر، زبان‌های کد و تنظیمات خروجی                        |
 | [`config/visual-editor.json`](./config/visual-editor.json) | متن ابزارها و پنجره‌های ویرایشگر دیداری                                                          |
+| [`config/seo.json`](./config/seo.json)                     | امکان ایندکس، robots، متادیتای اشتراک‌گذاری، تصویر اجتماعی و تأیید Search Console                |
 
 متن فصل‌ها و مشخصاتشان در `src/content/<locale>/` نگهداری می‌شوند. فهرست، دسته‌بندی‌ها، زمان مطالعه و لینک فصل‌ها از همین فایل‌ها ساخته می‌شوند.
 
@@ -38,9 +39,28 @@ routing: { mode: "hash" },
 https://USERNAME.github.io/REPOSITORY/#/read/fa/01-preface/
 ```
 
-مسیر مخزن بیرون از hash قرار می‌گیرد؛ مسیر صفحه، query استودیو و تیترهای فصل داخل آن هستند. لینک تیتر، ارجاع Markdown/MDX، جست‌وجو و اشتراک‌گذاری از همین ساختار استفاده می‌کنند. لینک‌های مستقیم قدیمی فصل‌ها به URL جدید تبدیل می‌شوند. `VITE_BASE_PATH` همچنان مسیر دارایی‌ها را تعیین می‌کند.
+مسیر مخزن بیرون از hash قرار می‌گیرد؛ مسیر صفحه، query استودیو و تیترهای فصل داخل آن هستند. لینک تیتر، ارجاع Markdown/MDX، جست‌وجو و اشتراک‌گذاری از همین ساختار استفاده می‌کنند. `VITE_BASE_PATH` مسیر دارایی‌ها را تعیین می‌کند.
+
+با `routing.indexableEntryPoints: true`، هر فصل یک صفحهٔ HTML واقعی هم دارد؛ مثلاً `/REPOSITORY/read/fa/01-preface/`. ورود مستقیم به این صفحات از مسیر واقعی و History API استفاده می‌کند و به hash منتقل نمی‌شود. چون فایل HTML آن مسیر هنگام build ساخته می‌شود، رفرش روی GitHub Pages هم کار می‌کند. ورود از صفحهٔ اصلی همچنان HashRouter دارد. این دو روش محتوای یکسانی نمایش می‌دهند؛ canonical و sitemap همیشه آدرس واقعیِ بدون hash را معرفی می‌کنند. خاموش‌کردن `indexableEntryPoints` رفتار قدیمیِ انتقال مسیرهای واقعی به hash را برمی‌گرداند.
 
 حالت `browser` برای میزبانی‌هایی که مسیرها را به صفحهٔ برنامه هدایت می‌کنند در دسترس است.
+
+## SEO و نمایش در گوگل
+
+`siteUrl` در `book.config.ts` فقط مبدأ سایت است، مانند `https://USERNAME.github.io`؛ نام مخزن را در این مقدار نگذارید. مسیر مخزن از `VITE_BASE_PATH` می‌آید. workflow گیتهاب هر دو مقدار را تنظیم می‌کند. برای دامنهٔ اختصاصی، متغیرهای مخزن `BOOK_SITE_ORIGIN` و `BOOK_BASE_PATH` را مشخص کنید.
+
+عنوان و توضیح هر فصل از frontmatter خودش می‌آیند؛ اطلاعات صفحهٔ کتاب از `title`، `description` و `author` خوانده می‌شود. HTML اولیه و متادیتای مرورگر از یک سازندهٔ مشترک استفاده می‌کنند. خروجی شامل متن کامل Markdown/MDX، canonical، `hreflang`، Open Graph، Twitter Card، داده‌های `Book`، `Chapter` و breadcrumb است. صفحات استودیو و خطا `noindex` دارند.
+
+در `config/seo.json`، `indexable` را برای انتشار عمومی روشن نگه دارید. `socialImage` باید تصویر قابل اشتراک مانند PNG، JPEG یا WebP باشد؛ نمونهٔ فعلی `public/images/social-card.png` با اندازهٔ ۱۲۰۰×۶۳۰ است. هنگام تعویض جلد، تصویر اجتماعی را هم تعویض و ابعادش را در کانفیگ وارد کنید. `twitterSite` اختیاری است. `googleSiteVerification` مقدار `content` تگ تأییدی است که Google Search Console به شما می‌دهد؛ این یک مقدار عمومی برای اثبات مالکیت سایت است.
+
+برای معرفی سایت به گوگل پس از انتشار:
+
+1. در [Google Search Console](https://search.google.com/search-console)، یک property از نوع URL prefix برای آدرس کامل کتاب، مانند `https://USERNAME.github.io/REPOSITORY/` بسازید.
+2. روش HTML tag را انتخاب کنید، مقدار تأیید را در `seo.googleSiteVerification` بگذارید، دوباره منتشر کنید و سپس Verify را بزنید.
+3. آدرس `https://USERNAME.github.io/REPOSITORY/sitemap.xml` را در بخش Sitemaps ثبت کنید.
+4. صفحهٔ اصلی و یک فصل واقعیِ بدون hash را در URL Inspection بررسی و Request indexing کنید.
+
+build فایل‌های `sitemap.xml` و `robots.txt` را تولید و صفحات و متادیتا را بررسی می‌کند. در مخزن‌های پروژه‌ای GitHub Pages، `robots.txt` داخل مسیر مخزن قرار دارد؛ قوانین دامنه فقط از `/robots.txt` در ریشهٔ دامنه خوانده می‌شوند. بنابراین sitemap را در Search Console هم ثبت کنید. زمان ایندکس و رتبهٔ نتایج را گوگل تعیین می‌کند؛ این تنظیمات سایت را قابل خزیدن و ایندکس می‌کنند.
 
 ## صفحهٔ اولیه و معرفی
 
