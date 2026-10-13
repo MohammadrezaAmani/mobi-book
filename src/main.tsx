@@ -2,7 +2,7 @@ import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import { BrowserRouter, HashRouter } from "react-router-dom";
 import { config } from "@/lib/book";
-import { legacyHashUrl } from "../scripts/routing.mjs";
+import { entryRoutingMode, legacyHashUrl } from "../scripts/routing.mjs";
 import { BookPreferencesProvider } from "@/hooks/use-book-preferences";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import App from "./App";
@@ -12,20 +12,35 @@ import "@fontsource-variable/inter";
 import "@fontsource-variable/vazirmatn";
 import "@fontsource-variable/literata";
 
-const Router = config.routing.mode === "hash" ? HashRouter : BrowserRouter;
-if (config.routing.mode === "hash") {
+const mode = entryRoutingMode(window.location, {
+  base: import.meta.env.BASE_URL,
+  ...config.routing,
+});
+const Router = mode === "hash" ? HashRouter : BrowserRouter;
+if (mode === "hash") {
   const upgraded = legacyHashUrl(window.location, import.meta.env.BASE_URL);
   if (upgraded) window.history.replaceState(window.history.state, "", upgraded);
 }
+const logicalPath =
+  mode === "hash"
+    ? window.location.hash.slice(1)
+    : "/" + window.location.pathname.slice(import.meta.env.BASE_URL.length);
+const initialLocale = /^\/(?:read|library)\/([^/]+)(?:\/|$)/.exec(
+  logicalPath,
+)?.[1];
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
     <Router
-      basename={
-        config.routing.mode === "browser" ? import.meta.env.BASE_URL : undefined
-      }
+      basename={mode === "browser" ? import.meta.env.BASE_URL : undefined}
     >
-      <BookPreferencesProvider>
+      <BookPreferencesProvider
+        initialLocale={
+          initialLocale && config.locales.includes(initialLocale)
+            ? initialLocale
+            : undefined
+        }
+      >
         <TooltipProvider>
           <App />
         </TooltipProvider>
